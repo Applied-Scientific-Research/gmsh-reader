@@ -103,11 +103,19 @@ public:
 };
 
 
-int main() {
-	Mesh mesh;
-	const char input_msh_file_name[] = "tutorial4Backup.msh"; // "mesh_file.msh";
-	char status = mesh.read_msh_file(input_msh_file_name);
-	return 1;
+int main(int argc, char const *argv[]) {
+
+	// load a simulation from a JSON file - check command line for file name
+	if (argc == 2) {
+		std::string input_msh_file_name = argv[1];
+		Mesh mesh;
+		char status = mesh.read_msh_file(input_msh_file_name.c_str());
+		return 1;
+	} else {
+		std::cout << std::endl << "Usage:" << std::endl;
+		std::cout << "  " << argv[0] << " filename.msh" << std::endl << std::endl;
+		return -1;
+	}
 }
 
 
