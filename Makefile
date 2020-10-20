@@ -1,2 +1,7 @@
-read_MSH_file.bin : read_MSH_file.cpp
-	g++ -o read_MSH_file.bin read_MSH_file.cpp -lm
+CXX=c++
+LIBS=-lm
+
+all : read_MSH_file.bin
+
+%.bin : %.cpp
+	${CXX} -o $@ $< ${LIBS}
