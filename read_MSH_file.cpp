@@ -144,6 +144,18 @@ char Mesh::read_msh_file (const char* const filename) {
 		exit(1);
 	}
 
+	// *************** Check version number for match: locate the keyword $MeshFormat *****************
+	//-----------------------------------------------------------------------------------------
+	tmp = locate_in_file(mshfile, "$MeshFormat");
+	{
+		double version;
+		int filetype, datasize;
+		mshfile >> version >> filetype >> datasize;
+		std::cout << "     Version is " << version << " and type is " << (filetype ? "binary" : "ASCII") << std::endl;
+		assert(version>=4.1 && "Error: Cannot read file versions less than 4.1");
+		assert(filetype==0 && "Error: Cannot read binary format files");
+	}
+
 	// *************** Now read in the Boundaries field: locate the keyword $PhysicalNames *****************
 	//-----------------------------------------------------------------------------------------
 	tmp = locate_in_file(mshfile, "$PhysicalNames");
