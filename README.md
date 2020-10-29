@@ -12,9 +12,11 @@ Again, quite nice:
     ./read_MSH_file.bin data/mesh_file.msh
     ./read_MSH_file.bin data/tutorial4Backup.msh
 
-This code will only read 4.1 ASCII version `.msh` files, these are written by recent versions of [gmsh](https://gmsh.info/).
+The final command will read the mesh pictured below.
 
-<img src="media/sample.png" alt="Sample mesh" width="500"/>
+<img src="media/sample.png" alt="Sample mesh" width="600"/>
+
+This code will only read 4.1 ASCII version `.msh` files, these are written by recent versions of [gmsh](https://gmsh.info/).
 
 ## Credits
 Most code is by Mohammad Haji <mhajit@gmail.com>. Snippits by Mark Stock <markjstock@gmail.com> and https://stackoverflow.com/users/763305 .
