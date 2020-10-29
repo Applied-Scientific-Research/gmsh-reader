@@ -31,3 +31,9 @@
 *.out
 *.app
 *.bin
+
+# build dirs
+build*
+Debug*
+Release*
+RelDbg*
