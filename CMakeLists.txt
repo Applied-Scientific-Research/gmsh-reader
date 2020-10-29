@@ -32,10 +32,8 @@ ELSEIF (MSVC)
 ENDIF ()
 
 # Define targets
-ADD_LIBRARY ( "${PROJECT_NAME}_static" STATIC "src/read_MSH_Mesh.cpp" )
+ADD_LIBRARY ( "${PROJECT_NAME}-static" STATIC "src/read_MSH_Mesh.cpp" )
 ADD_LIBRARY ( ${PROJECT_NAME} SHARED "src/read_MSH_Mesh.cpp" )
 
-#ADD_EXECUTABLE( ${PROJECT_NAME} "src/main.cpp" "src/read_MSH_Mesh.cpp" )
 ADD_EXECUTABLE( "${PROJECT_NAME}.bin" "src/main.cpp" )
-TARGET_LINK_LIBRARIES( "${PROJECT_NAME}.bin" LINK_PUBLIC "${PROJECT_NAME}_static" )
-#SET_TARGET_PROPERTIES( ${PROJECT_NAME} PROPERTIES OUTPUT_NAME "${PROJECT_NAME}.bin" )
+TARGET_LINK_LIBRARIES( "${PROJECT_NAME}.bin" LINK_PUBLIC "${PROJECT_NAME}-static" )
