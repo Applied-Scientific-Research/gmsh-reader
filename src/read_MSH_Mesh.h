@@ -1,4 +1,4 @@
-// read_MSH_file.cpp
+// read_MSH_Mesh.h
 //
 // (c)2020 Applied Scientific Research, Inc.
 //         Mohammad Hajit
@@ -32,22 +32,6 @@ public:
 	int locate_in_file(std::ifstream& filestream, const std::string& searchname); //to find a searchname in the MSH file and return the file stream
 
 };
-
-
-int main(int argc, char const *argv[]) {
-
-	// load a simulation from a JSON file - check command line for file name
-	if (argc == 2) {
-		std::string input_msh_file_name = argv[1];
-		Mesh mesh;
-		char status = mesh.read_msh_file(input_msh_file_name.c_str());
-		return 1;
-	} else {
-		std::cout << std::endl << "Usage:" << std::endl;
-		std::cout << "  " << argv[0] << " filename.msh" << std::endl << std::endl;
-		return -1;
-	}
-}
 
 
 char Mesh::read_msh_file (const char* const filename) {
@@ -266,6 +250,7 @@ char Mesh::read_msh_file (const char* const filename) {
 }
 
 //
+// Non-class helper function for line-reading
 // Because getline works only on text files from the OS that it was compiled on...
 //
 // From: https://stackoverflow.com/questions/6089231/getting-std-ifstream-to-handle-lf-cr-and-crlf
