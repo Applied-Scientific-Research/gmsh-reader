@@ -2,14 +2,11 @@
 //
 // (c)2020 Applied Scientific Research, Inc.
 //         Mohammad Hajit
+#pragma once
 
 #include <cmath>
 #include <string>
 #include <vector>
-
-//enum edges_types {_2Node_edge = 1, _3Node_edge = 8, _4Node_edge = 26, _5Node_edge = 27, _6Node_edge = 28};
-std::vector< std::vector<unsigned int>> edge_type_node_number{ {1,8,26,27,28}, {2,3,4,5,6} }; //holds the number of nodes on each edge type
-std::vector< std::vector<unsigned int>> face_type_node_number{ {3,10,16,36,37}, {4,9,8,16,25} }; //holds the number of nodes on each 2D element type
 
 // class for 2D coordinate system
 struct Cmpnts2 {
