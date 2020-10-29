@@ -2,17 +2,20 @@
 C++ application for reading a GMSH mesh file
 
 ## Build
-This is pretty easy - install a C++ compiler and run:
+Using CMake, build with the following commands.
 
+    mkdir build
+    cd build
+    cmake -DCMAKE_BUILD_TYPE=Release ..
     make
 
 ## Run
-Again, quite nice:
+Run it on one of the data files in `../data/`.
 
-    ./read_MSH_file.bin data/mesh_file.msh
-    ./read_MSH_file.bin data/tutorial4Backup.msh
+    ./gmsh-reader.bin ../data/mesh_file.msh
+    ./gmsh-reader.bin ../data/tutorial4Backup.msh
 
-The final command will read the mesh pictured below.
+The second command will read the mesh pictured below.
 
 <img src="media/sample.png" alt="Sample mesh" width="600"/>
 
