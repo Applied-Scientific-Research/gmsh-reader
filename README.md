@@ -9,8 +9,8 @@ This is pretty easy - install a C++ compiler and run:
 ## Run
 Again, quite nice:
 
-    ./read_MSH_file.bin mesh_file.msh
-    ./read_MSH_file.bin tutorial4Backup.msh
+    ./read_MSH_file.bin data/mesh_file.msh
+    ./read_MSH_file.bin data/tutorial4Backup.msh
 
 This code will only read 4.1 ASCII version `.msh` files, these are written by recent versions of [gmsh](https://gmsh.info/).
 
