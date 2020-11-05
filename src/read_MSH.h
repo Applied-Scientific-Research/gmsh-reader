@@ -7,6 +7,7 @@
 #include <cmath>
 #include <string>
 #include <vector>
+#include <cstdint>
 
 namespace ReadMsh {
 
@@ -56,23 +57,23 @@ struct Cmpnts2 {
 };
 
 struct element2d { // the 2D element
-	unsigned int element_type;
-	unsigned int N_nodes;
-	std::vector<unsigned int> nodes;
+	uint32_t N_nodes;
+	std::vector<uint32_t> nodes;
+	uint8_t element_type;
 };
 struct edge {  //the side edges of the 2D elements
-	unsigned int edge_type;
-	unsigned int N_nodes;
-	std::vector<unsigned int> nodes;
+	uint32_t N_nodes;
+	std::vector<uint32_t> nodes;
+	uint8_t edge_type;
 };
 struct node {  //the nodes
-	unsigned int node_type;  //0 for corner, 1 for nodes on the edges and 2 for nodes on the faces
 	Cmpnts2 coor;
+	uint8_t node_type;  //0 for corner, 1 for nodes on the edges and 2 for nodes on the faces
 };
 struct boundary {  //the boundary for 2D mesh
 	std::string name;  //name of the boundary
-	unsigned int N_edges; //number of the 1D edges constituting the boundary
-	std::vector<unsigned int> edges;  //the index of the edges that form the boundary
+	uint32_t N_edges; //number of the 1D edges constituting the boundary
+	std::vector<uint32_t> edges;  //the index of the edges that form the boundary
 	boundary() : N_edges(0){} //default constructor
 };
 

@@ -15,8 +15,8 @@ int main(int argc, char const *argv[]) {
 	if (argc == 2) {
 		std::string input_msh_file_name = argv[1];
 		ReadMsh::Mesh mesh;
-		char status = mesh.read_msh_file(input_msh_file_name.c_str());
-		return 1;
+		int status = mesh.read_msh_file(input_msh_file_name.c_str());
+		return status;
 	} else {
 		std::cout << std::endl << "Usage:" << std::endl;
 		std::cout << "  " << argv[0] << " filename.msh" << std::endl << std::endl;
