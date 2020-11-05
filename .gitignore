@@ -32,6 +32,9 @@
 *.app
 *.bin
 
+# geometry
+*.stl
+
 # build dirs
 build*
 Debug*

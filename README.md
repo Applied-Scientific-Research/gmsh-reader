@@ -19,6 +19,10 @@ The second command will read the mesh pictured below.
 
 <img src="media/sample.png" alt="Sample mesh" width="600"/>
 
+Or, generate an annular mesh with the following command.
+
+    gmsh -2 -format msh4 -o out.msh data/annular_structured.geo
+
 This code will only read 4.1 ASCII version `.msh` files, these are written by recent versions of [gmsh](https://gmsh.info/).
 
 ## Credits
