@@ -14,7 +14,7 @@ int main(int argc, char const *argv[]) {
 	// check command line for file name
 	if (argc == 2) {
 		std::string input_msh_file_name = argv[1];
-		Mesh mesh;
+		ReadMsh::Mesh mesh;
 		char status = mesh.read_msh_file(input_msh_file_name.c_str());
 		return 1;
 	} else {

@@ -11,6 +11,7 @@
 #include <string>
 #include <vector>
 
+namespace ReadMsh {
 
 class Mesh {
 private:
@@ -32,3 +33,4 @@ public:
 
 };
 
+}

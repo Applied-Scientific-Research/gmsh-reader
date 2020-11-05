@@ -8,6 +8,8 @@
 #include <string>
 #include <vector>
 
+namespace ReadMsh {
+
 // class for 2D coordinate system
 struct Cmpnts2 {
 	double x, y; //the components for 2D coordinate system
@@ -74,3 +76,4 @@ struct boundary {  //the boundary for 2D mesh
 	boundary() : N_edges(0){} //default constructor
 };
 
+}
