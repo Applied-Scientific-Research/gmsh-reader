@@ -1,12 +1,8 @@
 // -----------------------------------------------------------------------------
 //
-//  From Gmsh GEO tutorial 4
-//
 //  Structured annular mesh
 //
 // -----------------------------------------------------------------------------
-
-// As usual, we start by defining some variables:
 
 xc = 0.0;
 yc = 0.0;
@@ -15,10 +11,7 @@ r1 = 1.0;
 ncirc = 1.65*r0/0.05;
 nrad = (r1-r0)/0.05;
 
-// We can use all the usual mathematical functions (note the capitalized first
-// letters), plus some useful functions like Hypot(a, b) := Sqrt(a^2 + b^2):
-
-// Then we define some points and some lines using these variables:
+// define some points and some lines using these variables:
 
 Point(1) = {xc,    yc,    0};
 Point(2) = {xc+r0, yc,    0};
@@ -79,11 +72,15 @@ Mesh.SecondOrderLinear = 0;
 
 // define properties that we can use in gmsh-reader
 // WHEN YOU TURN THESE ON, STL OUTPUT BREAKS
+// IF YOU DONT TURN THESE ON, ELEMENTS WILL NOT BE WRITTEN TO MSH
+
+// in 2D, Curve is a BC and Surface is the solution domain
 Physical Curve("wall") = {1:4};
 Physical Curve("open") = {5:9};
+Physical Surface("fluid") = {12, 14, 16, 18};
 
+// in 3D, Curve is an edge, Surface is a BC, and Volume is the solution domain
 //Physical Point("kutta") = {59, 29, 81};
 //Physical Curve("wall") = {59, 29, 81};
-//Physical Surface("inlet") = {47};
-//Physical Volume("volume") = {2, 1, 3};
+//Physical Volume("fluid") = {12, 14, 16, 18};
 
