@@ -178,13 +178,13 @@ int32_t Mesh::read_msh_file (const char* const filename) {
 
 	mshfile >> elements_total_entities >> N_elements >> elements_min_index >> elements_max_index; //N_element= total number of nodes, edges and 2d elements, ignore the 0d elements
 	//std::cout << "ete " << elements_total_entities << "  Ne " << N_elements << std::endl;
-	//std::cout << "Np " << entities_N_points << "  Nc " << entities_N_curves << "  Nf " << entities_N_faces << std::endl;
-	assert(elements_total_entities == entities_N_points + entities_N_curves + entities_N_faces);
+
 
 	for (uint32_t element_entity = 0; element_entity < elements_total_entities; ++element_entity) {
+
 		mshfile >> entity_dim >> group_tag; ////entity_dim=0(0d), 1(1d) , 2(2d) features; group_tag: tag of entity
 		mshfile >> element_type >> tag_N_elements; //1,8,26,27,28: 2-node, 3-node, 4-node, 5-node and 6-node lines; 3,10,16,36,37: 4-node, 9-node, 8-node, 16-node, 25-node 2D elements
-		//std::cout << "  dim " << entity_dim << "  tag " << group_tag << "  type " << element_type << "  num " << tag_N_elements << std::endl;
+		std::cout << "  entity " << element_entity << "  dim " << entity_dim << "  tag " << group_tag << "  type " << element_type << "  num " << tag_N_elements << std::endl;
 
 		if (entity_dim==0 /*element_type==15*/)  //single-node point
 			for (uint32_t element = 0; element < tag_N_elements; ++element) //skip the nodes definitions
@@ -229,6 +229,7 @@ int32_t Mesh::read_msh_file (const char* const filename) {
 			}
 		}
 		else if (entity_dim == 2) { // element_type corresponds to face
+
 			its = std::find(face_type_node_number[0].begin(), face_type_node_number[0].end(), element_type);
 			check_start = its != face_type_node_number[0].end(); //true means the element is of face type
 			if (!check_start) {
@@ -270,7 +271,6 @@ int32_t Mesh::read_msh_file (const char* const filename) {
 				nodes.emplace_back(_node);
 			}
 			edges[i].nodes[j] = second_mapping[tmp1];  //redistributing the indices
-			
 		}
 	}
 	for (size_t i = 0; i < elements.size(); ++i) {
