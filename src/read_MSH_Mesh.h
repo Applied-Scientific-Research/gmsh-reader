@@ -27,6 +27,9 @@ public:
 	Mesh() {}	//default constructor
 	~Mesh() {}	//destructor define here later
 
+	const uint32_t get_nnodes() const { return N_nodes; }
+	const uint32_t get_nelems() const { return N_elements; }
+
 	// read the given mesh file and populate the data structures
 	int32_t read_msh_file(const char* const filename);
 
