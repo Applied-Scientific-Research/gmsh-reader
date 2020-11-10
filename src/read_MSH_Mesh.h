@@ -30,6 +30,12 @@ public:
 	const uint32_t get_nnodes() const { return N_nodes; }
 	const uint32_t get_nelems() const { return N_elements; }
 
+	// only allow const getters
+	const std::vector<node>& get_nodes() { return nodes; }
+	const std::vector<edge>& get_edges() { return edges; }
+	const std::vector<boundary>& get_bdry() { return boundaries; }
+	const boundary get_bdry(const std::string);
+
 	// read the given mesh file and populate the data structures
 	int32_t read_msh_file(const char* const filename);
 

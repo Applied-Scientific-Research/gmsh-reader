@@ -58,6 +58,15 @@ std::istream& safeGetline(std::istream& is, std::string& t)
     }
 }
 
+// useful for grabbing only "wall" or "open" boundary
+const boundary Mesh::get_bdry(const std::string _name) {
+	for (boundary thisb : boundaries) {
+		if (thisb.name.compare(_name) == 0) {
+			return thisb;
+		}
+	}
+	return boundary();
+}
 
 int32_t Mesh::read_msh_file (const char* const filename) {
 	// reads a msh file output from the Gmsh software. The msh file is in ASCII 4.1 version of the Gmsh output
