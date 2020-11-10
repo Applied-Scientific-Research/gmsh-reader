@@ -71,9 +71,9 @@ struct node {  //the nodes
 	uint8_t node_type;  //0 for corner, 1 for nodes on the edges and 2 for nodes on the faces
 };
 struct boundary {  //the boundary for 2D mesh
-	std::string name;  //name of the boundary
 	uint32_t N_edges; //number of the 1D edges constituting the boundary
 	std::vector<uint32_t> edges;  //the index of the edges that form the boundary
+	std::string name;  //name of the boundary
 	boundary() : N_edges(0){} //default constructor
 };
 
