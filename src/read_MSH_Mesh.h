@@ -35,6 +35,7 @@ public:
 	const std::vector<edge>& get_edges() { return edges; }
 	const std::vector<boundary>& get_bdry() { return boundaries; }
 	const boundary get_bdry(const std::string);
+	const std::vector<element2d>& get_elems() { return elements; }
 
 	// read the given mesh file and populate the data structures
 	int32_t read_msh_file(const char* const filename);
