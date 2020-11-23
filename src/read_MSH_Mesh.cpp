@@ -165,6 +165,7 @@ int32_t Mesh::read_msh_file (const char* const filename) {
 	for (uint32_t node_entity = 0; node_entity < nodes_total_entities; ++node_entity) {
 		mshfile >> entity_dim >> group_tag; //entity_dim=0(corners), 1(edge nodes) , 2(surface nodes); group_tag: tag of group for each entity
 		mshfile >> tmp >> tag_N_nodes; //tmp=0,1 means No parametric or with parametric; NNodes: number of nodes in this tag
+		N_nodes += tag_N_nodes;
 		std::fill(unorganized_node_type.begin() + unorganized_node_index, unorganized_node_type.begin() + unorganized_node_index + tag_N_nodes, entity_dim);
 		for (uint32_t node = 0; node < tag_N_nodes; ++node) { //store the indices
 			mshfile >> index;
