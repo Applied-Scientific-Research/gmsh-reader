@@ -70,7 +70,7 @@ const boundary Mesh::get_bdry(const std::string _name) {
 
 int32_t Mesh::read_msh_file (const char* const filename) {
 	// reads a msh file output from the Gmsh software. The msh file is in ASCII 4.1 version of the Gmsh output
-	std::cout << "     Gmsh file   ***** " << filename << " *****   opened for reading ..." << std::endl << std::endl;
+	std::cout << "    Gmsh file (" << filename << ") opened for reading ..." << std::endl;
 	int32_t retval = 1, tmp, tmp1, tmp2;
 	uint32_t index;
 	uint32_t nodes_min_index, nodes_max_index, raw_N_nodes, tag_N_nodes, nodes_total_entities, group_tag, entity_dim, unorganized_node_index = 0;
@@ -100,7 +100,7 @@ int32_t Mesh::read_msh_file (const char* const filename) {
 		double version;
 		int filetype, datasize;
 		mshfile >> version >> filetype >> datasize;
-		std::cout << "     Version is " << version << " and type is " << (filetype ? "binary" : "ASCII") << std::endl;
+		std::cout << "    version is " << version << " and type is " << (filetype ? "binary" : "ASCII") << std::endl;
 		assert(version>=4.1 && "Error: Cannot read file versions less than 4.1");
 		assert(filetype==0 && "Error: Cannot read binary format files");
 	} else {
@@ -194,7 +194,7 @@ int32_t Mesh::read_msh_file (const char* const filename) {
 
 		mshfile >> entity_dim >> group_tag; ////entity_dim=0(0d), 1(1d) , 2(2d) features; group_tag: tag of entity
 		mshfile >> element_type >> tag_N_elements; //1,8,26,27,28: 2-node, 3-node, 4-node, 5-node and 6-node lines; 3,10,16,36,37: 4-node, 9-node, 8-node, 16-node, 25-node 2D elements
-		std::cout << "  entity " << element_entity << "  dim " << entity_dim << "  tag " << group_tag << "  type " << element_type << "  num " << tag_N_elements << std::endl;
+		std::cout << "      entity " << element_entity << "  dim " << entity_dim << "  tag " << group_tag << "  type " << element_type << "  num " << tag_N_elements << std::endl;
 
 		if (entity_dim==0 /*element_type==15*/)  //single-node point
 			for (uint32_t element = 0; element < tag_N_elements; ++element) //skip the nodes definitions
@@ -260,7 +260,7 @@ int32_t Mesh::read_msh_file (const char* const filename) {
 			}
 		}
 	}
-	std::cout << "     Read " << elements_total_entities << " total entities" << std::endl;
+	std::cout << "    read " << elements_total_entities << " total entities ...";
 
 	// Now that the edge and elements are stored, the nodes constituting them should be renumbered
 	// use only the nodes that are used in the edges and elements vectors
@@ -299,7 +299,7 @@ int32_t Mesh::read_msh_file (const char* const filename) {
 		}
 	}
 
-	std::cout << "     Done." << std::endl;
+	std::cout << " done." << std::endl;
 	mshfile.close();
 
 	return retval;
