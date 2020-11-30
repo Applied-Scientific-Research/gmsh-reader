@@ -21,7 +21,9 @@ The second command will read the mesh pictured below.
 
 Or, generate an annular mesh with the following command.
 
+    module load gmsh
     gmsh -2 -format msh4 -o out.msh data/annular_structured.geo
+    gmsh -2 -format su2 -o out.su2 data/annular_structured.geo
 
 This code will only read 4.1 ASCII version `.msh` files, these are written by recent versions of [gmsh](https://gmsh.info/).
 
