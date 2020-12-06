@@ -8,8 +8,10 @@ xc = 0.0;
 yc = 0.0;
 r0 = 0.5;
 r1 = 1.0;
-ncirc = 1.65*r0/0.05;
-nrad = (r1-r0)/0.05;
+cellsize = 0.02828;
+ncirc = 0.5*3.1415927*r1/cellsize;
+//nrad = (r1-r0)/cellsize;
+nrad = 39;
 
 // define some points and some lines using these variables:
 
@@ -40,7 +42,7 @@ Line(11) = {2, 6};
 Line(12) = {3, 7};
 Line(13) = {4, 8};
 Line(14) = {5, 9};
-Transfinite Curve{11:14} = nrad Using Progression 1.1;
+Transfinite Curve{11:14} = nrad Using Progression 1.047;
 
 Curve Loop(11) = {11, 5, -12, -1};
 Plane Surface(12) = {11};
