@@ -51,10 +51,17 @@ my $npts = $nrad + 1;
 print "  Gmsh line should read \"Transfinite Curve{x:x} = ${npts} Using Progression ${testexp};\"\n";
 
 # generate the gmsh script file to make this
+my $progr = "${npts} Using Progression ${testexp}";
+my $templ = "annular_structured_template.geo";
+my $ncpq = $ntheta / 4;
+$command = "sed 's|INNER|${innerrad}|g; s|OUTER|${outerrad}|g; s|NCIRCPERQUAD|${ncpq}|g; s|PROGRESSION|${progr}|g; s|ORDER|${geomorder}|g;' < ${templ} > temp.geo";
+system $command;
 
 # run that script
+$command = "gmsh -2 -format msh4 -o out.msh temp.geo";
+system $command;
 
-# name the mesh file
+# re-name the mesh file (let the user do that)
 
 exit(0);
 
