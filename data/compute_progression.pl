@@ -2,11 +2,16 @@
 #
 # compute the number of nodes and progression for a desired nom sep
 
-my $nomsep = 0.02828;
-my $innerdr = 0.005;
+#my $nomsep = 0.02828;
+my $innerdr = 0.015;
 my $totalr = 0.5;
-
 my $testexp = 1.047;
+
+$innerdr = $ARGV[0];
+#$nomsep = $ARGV[1];
+$totalr = $ARGV[2];
+$testexp = $ARGV[1];
+
 
 my $thick = 0.0;
 my $num=0;

@@ -11,7 +11,6 @@ r1 = 1.0;
 cellsize = 0.02828;
 ncirc = 0.5*3.1415927*r1/cellsize;
 //nrad = (r1-r0)/cellsize;
-nrad = 39;
 
 // define some points and some lines using these variables:
 
@@ -42,7 +41,8 @@ Line(11) = {2, 6};
 Line(12) = {3, 7};
 Line(13) = {4, 8};
 Line(14) = {5, 9};
-Transfinite Curve{11:14} = nrad Using Progression 1.047;
+//Transfinite Curve{11:14} = 39 Using Progression 1.047;
+Transfinite Curve{11:14} = 25 Using Progression 1.0277;
 
 Curve Loop(11) = {11, 5, -12, -1};
 Plane Surface(12) = {11};
@@ -64,8 +64,12 @@ Plane Surface(18) = {17};
 Transfinite Surface{18};
 Recombine Surface{18};
 
+// this
 Mesh.ElementOrder = 2;
 Mesh.SecondOrderLinear = 0;
+
+// or this
+//Mesh.ElementOrder = 1;
 
 
 // run with
