@@ -3,11 +3,11 @@
 # generate a structured annular mesh for Omega2D (Hybrid)
 
 my $innerrad = 0.5;
-my $outerrad = 1.0;
-my $outerdr = 0.02828;
-my $innerdr = 0.01;
-my $geomorder = 1;	# really, 1 or 2 for this
-my $elemorder = 2;	# aim for 1-3 here
+my $outerrad = 0.6;
+my $outerdr = 0.02;
+my $innerdr = 0.005;
+my $geomorder = 3;	# really, 1 or 2 for this
+my $elemorder = 1;	# aim for 1-3 here
 
 #$innerdr = $ARGV[0];
 #$totalr = $ARGV[2];
@@ -59,6 +59,8 @@ system $command;
 
 # run that script
 $command = "gmsh -2 -format msh4 -o out.msh temp.geo";
+system $command;
+$command = "gmsh -2 -format su2 -o out.su2 temp.geo";
 system $command;
 
 # re-name the mesh file (let the user do that)
