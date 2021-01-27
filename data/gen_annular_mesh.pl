@@ -3,20 +3,19 @@
 # generate a structured annular mesh for Omega2D (Hybrid)
 
 my $innerrad = 0.5;
-my $outerrad = 1.0;
+my $outerrad = 0.6;
 
 # fix both
-my $outerdr = 0.002;
+my $outerdr = 0.004;
 my $innerdr = 0.002;
 
 # fix outer, vary inner
-$innerdr = $outerdr * $innerrad / $outerrad;
+#$innerdr = $outerdr * $innerrad / $outerrad;
 
 # fix inner, vary outer
-#$outerdr
+#$outerdr = $innerdr * $outerrad / $innerrad;
 
 my $geomorder = 3;	# really, 1 or 2 for this
-my $elemorder = 1;	# aim for 1-3 here
 
 #$innerdr = $ARGV[0];
 #$totalr = $ARGV[2];
@@ -24,7 +23,7 @@ my $elemorder = 1;	# aim for 1-3 here
 
 # use the outer dr and elem order to set the number of cells in the circumferential direction
 # (so each solution node covers roughly outerdr x outerdr in area)
-my $outercelldr = $outerdr * $elemorder;
+my $outercelldr = $outerdr;
 my $ntheta = 6.28318531 * $outerrad / $outercelldr;
 # round up/down to the nearest 4
 $ntheta = 4 * int($ntheta*0.25);
@@ -35,7 +34,7 @@ print "Will use ${ntheta} cells and nodes around the circumference, each ${outer
 # now, more difficult, find out how many cells we need in the radial direction AND the progression
 
 # first, march the exponent up until we get close to the right outer cell size
-my $innercelldr = $innerdr * $elemorder;
+my $innercelldr = $innerdr;
 my $testexp = 1.0;
 my ($nrad, $totthick, $lastdr) = &compute_series($innercelldr, $testexp, $outerrad-$innerrad);
 while ($lastdr < $outercelldr) {
