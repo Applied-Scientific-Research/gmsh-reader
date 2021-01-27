@@ -3,9 +3,18 @@
 # generate a structured annular mesh for Omega2D (Hybrid)
 
 my $innerrad = 0.5;
-my $outerrad = 0.6;
-my $outerdr = 0.02;
-my $innerdr = 0.005;
+my $outerrad = 1.0;
+
+# fix both
+my $outerdr = 0.002;
+my $innerdr = 0.002;
+
+# fix outer, vary inner
+$innerdr = $outerdr * $innerrad / $outerrad;
+
+# fix inner, vary outer
+#$outerdr
+
 my $geomorder = 3;	# really, 1 or 2 for this
 my $elemorder = 1;	# aim for 1-3 here
 
