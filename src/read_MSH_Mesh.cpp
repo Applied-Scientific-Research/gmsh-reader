@@ -225,16 +225,20 @@ int32_t Mesh::read_msh_file (const char* const filename) {
 
 			//tmp_curves_edges_tag[index].resize(tag_N_elements); //to store the edges tags for the curves (which are defined in entities)
 
+			//std::cout << "reading tag " << index << " with " << tag_N_elements << " edges starting at " << boundaries[index].N_edges << std::endl;
 			for (uint32_t i = boundaries[index].N_edges - tag_N_elements; i < boundaries[index].N_edges; ++i) {
 				boundaries[index].edges[i] = edge_index++; // the index corresponding to edges vector
 				//boundaries[index].edges.push_back(edge_index++); // the index corresponding to edges vector
 
 				mshfile >> tmp;
 				_edge.nodes.clear();
+				//std::cout << "  edge " << edge_index << " has nodes ";
 				for (uint32_t j = 0; j < _edge.N_nodes; ++j) {
 					mshfile >> node_index;
+					//std::cout << " " << node_index;
 					_edge.nodes.push_back(node_index- nodes_min_index);
 				}
+				//std::cout << std::endl;
 				edges.push_back(_edge);
 			}
 		}
@@ -260,8 +264,10 @@ int32_t Mesh::read_msh_file (const char* const filename) {
 			}
 		}
 	}
-	std::cout << "    read " << elements_total_entities << " total entities ...";
+	mshfile.close();
+	std::cout << "    read " << elements_total_entities << " total entities ..." << std::endl;
 
+	std::cout << "    compressing node list..." << std::endl;
 	// Now that the edge and elements are stored, the nodes constituting them should be renumbered
 	// use only the nodes that are used in the edges and elements vectors
 	node _node;
@@ -299,8 +305,86 @@ int32_t Mesh::read_msh_file (const char* const filename) {
 		}
 	}
 
-	std::cout << " done." << std::endl;
-	mshfile.close();
+	// Since Gmsh does not care to order the boundary edges coherently, we must do so
+
+	// but first, we need to ensure that all elements have their nodes ordered in CCW direction
+	for (size_t i = 0; i < elements.size(); ++i) {
+		//std::cout << "  checking elem " << i << std::endl;
+		uint32_t num_ccw = 0;
+		// HACK - ASSUMES THIS IS A QUAD
+		for (size_t j = 0; j < 4; ++j) {
+			const uint32_t n0 = elements[i].nodes[j];
+			const uint32_t n1 = elements[i].nodes[(j+1) % 4];
+			const uint32_t n2 = elements[i].nodes[(j+2) % 4];
+			//std::cout << "    nodes " << n0 << ", " << n1 << ", " << n2 << std::endl;
+			const struct Cmpnts2 p0 = nodes[n0].coor;
+			const struct Cmpnts2 p1 = nodes[n1].coor;
+			const struct Cmpnts2 p2 = nodes[n2].coor;
+			const double dotprod = (p1.x-p0.x)*(p2.y-p1.y) - (p1.y-p0.y)*(p2.x-p1.x);
+                        //std::cout << "    nodes " << n0 << ", " << n1 << ", " << n2 << " dot prod is " << dotprod << std::endl;
+			// ALL corners must be left-turns
+			if (dotprod > 0.0) ++num_ccw;
+		}
+		if (num_ccw == 0) {
+			// flip the orientation, first the first 4 nodes
+			std::reverse(elements[i].nodes.begin(),elements[i].nodes.begin()+3);
+			// then the rest of the nodes
+			std::reverse(elements[i].nodes.begin()+4,elements[i].nodes.end());
+			std::cout << "    flipping elem " << i << std::endl;
+		} else if (num_ccw == 4) {
+			// all good
+		} else {
+			std::cout << "  elem " << i << " is not convex - errors may emerge!" << std::endl;
+		}
+	}
+
+	// edge nodes are ordered so that facing the vector from nodes 0 to 1, the interior of the fluid is to the left
+	std::cout << "    reordering edge nodes for coherency..." << std::endl;
+	for (size_t i = 0; i < edges.size(); ++i) {
+		//std::cout << "  checking edge " << i << std::endl;
+		// note that no matter what order the edge is, the end nodes are always 0 and 1
+		const uint32_t n0 = edges[i].nodes[0];
+		const uint32_t n1 = edges[i].nodes[1];
+		// find the element that contains both nodes
+		for (size_t j = 0; j < elements.size(); ++j) {
+			int hasnodes = 0;
+			for (size_t k = 0; k < elements[j].N_nodes; ++k) {
+				if (elements[j].nodes[k] == n0) ++hasnodes;
+				if (elements[j].nodes[k] == n1) ++hasnodes;
+			}
+			if (hasnodes == 2) {
+				//std::cout << "    its on elem " << j << std::endl;
+				bool correctorder = false;
+				// now, do the nodes appear in the correct order?
+				// HACK - ASSUMES THIS IS A QUAD
+				for (size_t k = 0; k < 4; ++k) {
+					if (elements[j].nodes[k] == n0 and
+					    elements[j].nodes[(k+1)%4] == n1) {
+						correctorder = true;
+					}
+				}
+				if (not correctorder) {
+					std::cout << "      flipping edge " << i << std::endl;
+					//std::cout << "    original order ";
+					//for (size_t k=0; k<edges[i].nodes.size(); ++k) std::cout << " " << edges[i].nodes[k];
+					//std::cout << std::endl;
+					edges[i].nodes[0] = n1;
+					edges[i].nodes[1] = n0;
+					if (edges[i].nodes.size() > 2) {
+						// reverse the middle nodes
+						std::reverse(edges[i].nodes.begin()+2, edges[i].nodes.end());
+					}
+					//std::cout << "    new order ";
+					//for (size_t k=0; k<edges[i].nodes.size(); ++k) std::cout << " " << edges[i].nodes[k];
+					//std::cout << std::endl;
+				}
+				// bust out of this loop
+				j =  elements.size();
+			}
+		}
+	}
+
+	std::cout << "    done." << std::endl;
 
 	return retval;
 }
