@@ -8,7 +8,7 @@ my $thick = 0.1;
 my $outerdt = 0.02;
 my $innerdt = $outerdt * 0.25;
 my $dl = $outerdt;
-my $geomorder = 1;	# can stay 1 for elements with straight sides
+my $geomorder = 3;	# can stay 1 for elements with straight sides (that forces vtk output to be 1st order, too)
 
 #$innerdr = $ARGV[0];
 #$totalr = $ARGV[2];
