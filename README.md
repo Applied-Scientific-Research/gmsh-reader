@@ -27,5 +27,8 @@ Or, generate an annular mesh with the following command.
 
 This code will only read 4.1 ASCII version `.msh` files, these are written by recent versions of [gmsh](https://gmsh.info/).
 
+## Notes
+A clever method to set the `Progression` in a gmsh script is given by this blog post: (https://afqueiruga.github.io/simulation/2018/08/21/geometric-progression-for-meshes.html)
+
 ## Credits
 Most code is by Mohammad Haji <mhajit@gmail.com>. Snippits by Mark Stock <markjstock@gmail.com> and https://stackoverflow.com/users/763305 .
