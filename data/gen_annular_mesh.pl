@@ -3,11 +3,12 @@
 # generate a structured annular mesh for Omega2D (Hybrid)
 
 my $innerrad = 0.5;
-my $outerrad = 0.6;
+my $outerrad = 1.0;
 
 # fix both
-my $outerdr = 0.004;
-my $innerdr = 0.002;
+my $outerdr = 0.0044;
+my $innerdr = 0.004;
+$outerdr = $innerdr * $outerrad / $innerrad;
 
 # fix outer, vary inner
 #$innerdr = $outerdr * $innerrad / $outerrad;
@@ -21,7 +22,7 @@ my $geomorder = 3;	# really, 1 or 2 for this
 #$totalr = $ARGV[2];
 #$testexp = $ARGV[1];
 
-# use the outer dr and elem order to set the number of cells in the circumferential direction
+# use the *outer* dr and elem order to set the number of cells in the circumferential direction
 # (so each solution node covers roughly outerdr x outerdr in area)
 my $outercelldr = $outerdr;
 my $ntheta = 6.28318531 * $outerrad / $outercelldr;
