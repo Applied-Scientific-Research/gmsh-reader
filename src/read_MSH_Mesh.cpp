@@ -358,12 +358,12 @@ int32_t Mesh::read_msh_file (const char* const filename) {
 				// now, do the nodes appear in the correct order?
 				// HACK - ASSUMES THIS IS A QUAD
 				for (size_t k = 0; k < 4; ++k) {
-					if (elements[j].nodes[k] == n0 and
+					if (elements[j].nodes[k] == n0 &&
 					    elements[j].nodes[(k+1)%4] == n1) {
 						correctorder = true;
 					}
 				}
-				if (not correctorder) {
+				if (!correctorder) {
 					std::cout << "      flipping edge " << i << std::endl;
 					//std::cout << "    original order ";
 					//for (size_t k=0; k<edges[i].nodes.size(); ++k) std::cout << " " << edges[i].nodes[k];
