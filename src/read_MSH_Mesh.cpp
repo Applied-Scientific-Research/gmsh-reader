@@ -13,6 +13,11 @@
 #include <cassert>
 #include <cstdint>
 
+#ifdef _WIN32
+  // for C++11 stuff that Microsoft can't get right
+  #include <ciso646>
+#endif
+
 namespace ReadMsh {
 
 //enum edges_types {_2Node_edge = 1, _3Node_edge = 8, _4Node_edge = 26, _5Node_edge = 27, _6Node_edge = 28};
