@@ -2,9 +2,8 @@
 # gmsh-reader
 # (c)2020 Applied Scientific Research, Inc.
 #
-CMAKE_MINIMUM_REQUIRED( VERSION 2.8 )
-PROJECT( gmsh-reader )
-ENABLE_LANGUAGE (CXX)
+CMAKE_MINIMUM_REQUIRED( VERSION 3.4 )
+PROJECT( gmsh-reader CXX )
 
 # User-serviceable variables here
 SET_PROPERTY(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "RelWithDebInfo")
