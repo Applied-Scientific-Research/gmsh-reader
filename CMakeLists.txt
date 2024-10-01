@@ -2,7 +2,7 @@
 # gmsh-reader
 # (c)2020 Applied Scientific Research, Inc.
 #
-CMAKE_MINIMUM_REQUIRED( VERSION 3.4 )
+CMAKE_MINIMUM_REQUIRED( VERSION 3.5 )
 PROJECT( gmsh-reader CXX )
 
 # User-serviceable variables here
