@@ -30,6 +30,8 @@ ELSEIF (MSVC)
   SET (CMAKE_CXX_FLAGS_RELEASE "/O2")
 ENDIF ()
 
+INCLUDE_DIRECTORIES( "src" )
+
 # Define targets
 ADD_LIBRARY ( "${PROJECT_NAME}-static" STATIC "src/read_MSH_Mesh.cpp" )
 ADD_LIBRARY ( ${PROJECT_NAME} SHARED "src/read_MSH_Mesh.cpp" )
