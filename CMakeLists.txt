@@ -33,8 +33,8 @@ ENDIF ()
 INCLUDE_DIRECTORIES( "src" )
 
 # Define targets
-ADD_LIBRARY ( "${PROJECT_NAME}-static" STATIC "src/read_MSH_Mesh.cpp" )
-ADD_LIBRARY ( ${PROJECT_NAME} SHARED "src/read_MSH_Mesh.cpp" )
+ADD_LIBRARY ( "${PROJECT_NAME}" STATIC "src/read_MSH_Mesh.cpp" )
+#ADD_LIBRARY ( ${PROJECT_NAME} SHARED "src/read_MSH_Mesh.cpp" )
 
 ADD_EXECUTABLE( "${PROJECT_NAME}.bin" "src/main.cpp" )
-TARGET_LINK_LIBRARIES( "${PROJECT_NAME}.bin" LINK_PUBLIC "${PROJECT_NAME}-static" )
+TARGET_LINK_LIBRARIES( "${PROJECT_NAME}.bin" LINK_PUBLIC "${PROJECT_NAME}" )
